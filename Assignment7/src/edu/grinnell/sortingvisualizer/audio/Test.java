@@ -3,6 +3,6 @@ package edu.grinnell.sortingvisualizer.audio;
 public class Test {
   public static void main(String[] args) {
     System.out.println("YAyayaaya");
-    System.out.println("YAyayaaya");
+    System.out.println("YAyayaa");
   }
 }

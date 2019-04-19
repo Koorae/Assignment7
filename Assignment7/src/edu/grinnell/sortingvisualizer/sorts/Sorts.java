@@ -12,6 +12,7 @@ public class Sorts {
           index = j;
 
       T smaller = arr[index];
+      
       arr[index] = arr[i];
       arr[i] = smaller;
     }

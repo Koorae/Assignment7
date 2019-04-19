@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Sorts {
 
+  
   public static <T extends Comparable<T>> void selectionSort(T[] arr) {
     for (int i = 0; i < arr.length - 1; i++) {
       int index = i;
@@ -73,14 +74,22 @@ public class Sorts {
   }
 
   public static <T extends Comparable<T>> void quickSortHelper(T[] arr, int start, int end) {
+    if (end - start <= 0) {
+      return;
+    }
     if (end - start <= 1) {
+      if (arr[start].compareTo(arr[end]) > 0) {
+        T temp = arr[end];
+        arr[end] = arr[start];
+        arr[start] = temp;
+      }
       return;
     }
     int mid = (start + end) / 2;
     T pivot = arr[mid];
     int i = start;
     int j = end;
-    while (i <= j) {
+    while (i < j) {
       while (arr[i].compareTo(pivot) < 0) {
         i++;
       }

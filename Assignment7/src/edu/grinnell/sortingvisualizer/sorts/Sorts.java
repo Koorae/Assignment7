@@ -40,20 +40,30 @@ public class Sorts {
     if (start < end) {
       mergeSortHelper(arr, start, mid);
       mergeSortHelper(arr, mid + 1, end);
+      T[] temp = arr.clone();
       int i = start;
       int j = mid + 1;
-      while (i != j && j < end) {
-        if (arr[i].compareTo(arr[j]) <= 0) {
+      int b = start;
+      while (i <= mid && j <= end) {
+        if (temp[i].compareTo(temp[j]) <= 0) {
+          arr[b] = temp[i];
           i++;
-        } else {
-          T temp = arr[j];
-          int tempnum = i;
-          arr[j] = arr[i];
-          arr[i] = temp;
-          i = j;
-          j = tempnum;
+        }
+        else {
+          arr[b] = temp[j];
           j++;
         }
+        b++;
+      }
+      while (i <= mid) {
+        arr[b] = temp[i];
+        i++;
+        b++;
+      }
+      while (j <= end) {
+        arr[b] = temp[j];
+        j++;
+        b++;
       }
     } // if
     for (int i = 0; i < arr.length; i++) {

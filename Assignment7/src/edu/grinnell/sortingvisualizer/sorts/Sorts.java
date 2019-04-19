@@ -1,5 +1,7 @@
 package edu.grinnell.sortingvisualizer.sorts;
 
+import java.util.Random;
+
 public class Sorts {
 
   public static <T extends Comparable<T>> void selectionSort(T[] arr) {
@@ -28,26 +30,49 @@ public class Sorts {
       arr[j + 1] = key;
     }
   }
-  
+
   public static <T extends Comparable<T>> void mergeSort(T[] arr) {
     mergeSortHelper(arr, 0, arr.length - 1);
   }
-  
+
   public static <T extends Comparable<T>> void mergeSortHelper(T[] arr, int start, int end) {
     int mid = (start + end) / 2;
-    T[] Left = (T[])new Object[mid - start];
-    T[] Right = (T[])new Object[end - mid];
-    
-    for (int i = 0; i < (mid - start); i++) {
-      Left[i] = arr[i];
+    if (start < end) {
+      mergeSortHelper(arr, start, mid);
+      mergeSortHelper(arr, mid + 1, end);
+      int i = start;
+      int j = mid + 1;
+      while (i != j && j < end) {
+        if (arr[i].compareTo(arr[j]) <= 0) {
+          i++;
+        } else {
+          T temp = arr[j];
+          int tempnum = i;
+          arr[j] = arr[i];
+          arr[i] = temp;
+          i = j;
+          j = tempnum;
+          j++;
+        }
+      }
+    } // if
+    for (int i = 0; i < arr.length; i++) {
+      System.out.println(arr[i]);
     }
-    for (int i = 0; i < (end - mid); i++) {
-      Right[i] = arr[mid + i];
-    }
-    
-    
+    System.out.println();
+    System.out.println();
   }
   
+  public static <T extends Comparable<T>> void mergeSortHelperOther(T[] arr, int start, int end) {
+    
+    // print
+    for (int i = 0; i < arr.length; i++) {
+      System.out.println(arr[i]);
+    }
+    System.out.println();
+    System.out.println();
+  }
+
   public static <T extends Comparable<T>> void quickSort(T[] arr) {
     quickSortHelper(arr, 0, arr.length - 1);
   }
@@ -76,5 +101,27 @@ public class Sorts {
     if (end > i) {
       quickSortHelper(arr, i, end);
     }
+  }
+
+  public static <T extends Comparable<T>> void blindLuckSort(T[] arr) {
+    Random rand = new Random();
+    int pos1;
+    int pos2;
+    while (badLuck(arr)) {
+      pos1 = rand.nextInt(arr.length);
+      pos2 = rand.nextInt(arr.length);
+      T temp = arr[pos1];
+      arr[pos1] = arr[pos2];
+      arr[pos2] = temp;
+    }
+  }
+
+  public static <T extends Comparable<T>> boolean badLuck(T[] arr) {
+    for (int i = 0; i < arr.length - 2; i++) {
+      if (arr[i].compareTo(arr[i + 1]) > 0) {
+        return true;
+      }
+    }
+    return false;
   }
 }

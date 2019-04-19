@@ -48,8 +48,7 @@ public class Sorts {
         if (temp[i].compareTo(temp[j]) <= 0) {
           arr[b] = temp[i];
           i++;
-        }
-        else {
+        } else {
           arr[b] = temp[j];
           j++;
         }
@@ -66,21 +65,6 @@ public class Sorts {
         b++;
       }
     } // if
-    for (int i = 0; i < arr.length; i++) {
-      System.out.println(arr[i]);
-    }
-    System.out.println();
-    System.out.println();
-  }
-  
-  public static <T extends Comparable<T>> void mergeSortHelperOther(T[] arr, int start, int end) {
-    
-    // print
-    for (int i = 0; i < arr.length; i++) {
-      System.out.println(arr[i]);
-    }
-    System.out.println();
-    System.out.println();
   }
 
   public static <T extends Comparable<T>> void quickSort(T[] arr) {
@@ -88,12 +72,15 @@ public class Sorts {
   }
 
   public static <T extends Comparable<T>> void quickSortHelper(T[] arr, int start, int end) {
+    if (end - start <= 1) {
+      return;
+    }
     int mid = (start + end) / 2;
     T pivot = arr[mid];
-    int i = 0;
+    int i = start;
     int j = end;
     while (i <= j) {
-      while (arr[i].compareTo(pivot) <= 0) {
+      while (arr[i].compareTo(pivot) < 0) {
         i++;
       }
       while (arr[j].compareTo(pivot) > 0) {
@@ -103,6 +90,8 @@ public class Sorts {
         T temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
+        i++;
+        j--;
       }
     }
     if (start < j) {
@@ -114,7 +103,7 @@ public class Sorts {
   }
 
   public static <T extends Comparable<T>> void blindLuckSort(T[] arr) {
-    Random rand = new Random();
+    Random rand = new Random(2);
     int pos1;
     int pos2;
     while (badLuck(arr)) {
@@ -128,8 +117,10 @@ public class Sorts {
 
   public static <T extends Comparable<T>> boolean badLuck(T[] arr) {
     for (int i = 0; i < arr.length - 2; i++) {
-      if (arr[i].compareTo(arr[i + 1]) > 0) {
-        return true;
+      for (int j = i; j < arr.length; j++) {
+        if (arr[i].compareTo(arr[j]) > 0) {
+          return true;
+        }
       }
     }
     return false;

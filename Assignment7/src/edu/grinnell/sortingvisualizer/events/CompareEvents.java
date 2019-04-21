@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package edu.grinnell.sortingvisualizer.events;
 
 import java.util.List;
@@ -34,11 +33,3 @@ public class CompareEvents<T> implements SortEvent<T>{
   }
 
 }
-=======
-package edu.grinnell.sortingvisualizer.events;
-
-public class CompareEvents <T extends Comparable<T>> implements SortEvent <T extends Comparable<T>>{
-
-  
-}
->>>>>>> branch 'master' of https://github.com/Koorae/Assignment7.git

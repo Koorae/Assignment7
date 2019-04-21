@@ -1,10 +1,12 @@
 package edu.grinnell.sortingvisualizer.sorts;
 
+import java.util.List;
 import java.util.Random;
+import edu.grinnell.sortingvisualizer.events.SortEvent;
 
 public class Sorts {
 
-  
+
   public static <T extends Comparable<T>> void selectionSort(T[] arr) {
     for (int i = 0; i < arr.length - 1; i++) {
       int index = i;
@@ -13,7 +15,7 @@ public class Sorts {
           index = j;
 
       T smaller = arr[index];
-      
+
       arr[index] = arr[i];
       arr[i] = smaller;
     }
@@ -112,8 +114,14 @@ public class Sorts {
     }
   }
 
+  public static <T extends Comparable<T>> void eventSort(T[] arr, List<SortEvent<T>> sorr) {
+    for (int i = 0; i < arr.length; i++) {
+      sorr.get(i).apply(arr);
+    }
+  }
+
   public static <T extends Comparable<T>> void blindLuckSort(T[] arr) {
-    Random rand = new Random(2);
+    Random rand = new Random();
     int pos1;
     int pos2;
     while (badLuck(arr)) {

@@ -151,15 +151,7 @@ class SortsTest {
   void checkQuickSort(Integer[] expected) {
     Integer[] copy = expected.clone();
     randomlyPermute(copy);
-    for (int i = 0; i < copy.length; i++) {
-      System.out.println(copy[i]);
-    }
-    System.out.println();
     Sorts.quickSort(copy);
-    for (int i = 0; i < copy.length; i++) {
-      System.out.println(copy[i]);
-    }
-    System.out.println();
     assertArrayEquals(expected, copy);
   } // checkQuicksort
   

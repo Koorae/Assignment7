@@ -2,7 +2,7 @@ package edu.grinnell.sortingvisualizer.events;
 
 import java.util.List;
 
-public class CompareEvents implements SortEvent{
+public class CompareEvents<T> implements SortEvent<T>{
 
   int first;
   

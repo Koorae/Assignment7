@@ -1,5 +1,6 @@
 package edu.grinnell.sortingvisualizer.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SwapEvents<T> implements SortEvent<T>{
@@ -8,13 +9,13 @@ public class SwapEvents<T> implements SortEvent<T>{
   
   int swap2;
   
-  List<Integer> indicies;
+  List<Integer> indices = new ArrayList<Integer>();
   
   public SwapEvents(int first, int second) {
     this.swap1 = first;
     this.swap2 = second;
-    this.indicies.add(this.swap1);
-    this.indicies.add(this.swap2);
+    this.indices.add(first);
+    this.indices.add(second);
   }
   @Override
   public void apply(T[] arr) {
@@ -24,7 +25,7 @@ public class SwapEvents<T> implements SortEvent<T>{
   }
   @Override
   public List<Integer> getAffectedIndicies() {
-    return this.indicies;
+    return this.indices;
   }
 
   @Override

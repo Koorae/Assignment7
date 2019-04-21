@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class NoteIndices {
 
-  Integer[] notes;
+  public Integer[] notes;
   Boolean[] hl;
 
   /**
@@ -31,7 +31,7 @@ public class NoteIndices {
     this.hl = new Boolean[n];
     int rand;
     for (int i = 0; i < n; i++) {
-      this.notes[i] = 2 * i;
+      this.notes[i] = 2 * (i + 1);
       this.hl[i] = false;
     }
     for (int i = 0; i < n; i++) {
@@ -53,17 +53,18 @@ public class NoteIndices {
    * @param index the index to highlight
    */
   public void highlightNote(int index) {
-    // TODO: fill me in
+    this.hl[index] = true;
   }
 
   /** @return true if the given index is highlighted */
   public boolean isHighlighted(int index) {
-    // TODO: fill me in
-    return false;
+    return this.hl[index];
   }
 
   /** Clears all highlighted indices from this collection */
   public void clearAllHighlighted() {
-    // TODO: fill me in
+    for (int i = 0; i < hl.length; i++) {
+      hl[i] = false;
+    }
   }
 }

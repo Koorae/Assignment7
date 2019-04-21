@@ -1,5 +1,6 @@
 package edu.grinnell.sortingvisualizer.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CopyEvents<T> implements SortEvent<T> {
@@ -7,13 +8,13 @@ public class CopyEvents<T> implements SortEvent<T> {
   T val;
   
   int des;
-
-  List<Integer> indicies;
+  
+  List<Integer> indices = new ArrayList<Integer>();
 
   public CopyEvents(T value, int destination) {
     this.val = value;
     this.des = destination;
-    this.indicies.add(this.des);
+    this.indices.add(this.des);
   }
 
   @Override
@@ -23,7 +24,7 @@ public class CopyEvents<T> implements SortEvent<T> {
 
   @Override
   public List<Integer> getAffectedIndicies() {
-    return this.indicies;
+    return this.indices;
   }
 
   @Override

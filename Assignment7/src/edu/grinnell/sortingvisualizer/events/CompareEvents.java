@@ -1,5 +1,6 @@
 package edu.grinnell.sortingvisualizer.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompareEvents<T> implements SortEvent<T>{
@@ -8,13 +9,13 @@ public class CompareEvents<T> implements SortEvent<T>{
   
   int second;
   
-  List<Integer> indicies;
+  List<Integer> indices = new ArrayList<Integer>();
   
   public CompareEvents(int first, int second) {
     this.first = first;
     this.second = second;
-    this.indicies.add(this.first);
-    this.indicies.add(this.second);
+    this.indices.add(this.first);
+    this.indices.add(this.second);
   }
   
   @Override
@@ -23,7 +24,7 @@ public class CompareEvents<T> implements SortEvent<T>{
 
   @Override
   public List<Integer> getAffectedIndicies() {
-    return this.indicies;
+    return this.indices;
   }
 
   @Override

@@ -1,5 +1,6 @@
 package edu.grinnell.sortingvisualizer.rendering;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
@@ -25,6 +26,9 @@ public class ArrayPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        // TODO: fill me in
+      Dimension dim = this.getPreferredSize();
+      g.setColor(Color.white);
+      g.fillRect(0, 0, dim.width, dim.height);
+      int width = dim.width / notes.scales.size();
     }
 }

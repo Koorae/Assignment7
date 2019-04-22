@@ -14,8 +14,6 @@ public class SwapEvents<T> implements SortEvent<T>{
   public SwapEvents(int first, int second) {
     this.swap1 = first;
     this.swap2 = second;
-    this.indices.add(first);
-    this.indices.add(second);
   }
   @Override
   public void apply(T[] arr) {
@@ -24,7 +22,9 @@ public class SwapEvents<T> implements SortEvent<T>{
     arr[this.swap2] = temp;
   }
   @Override
-  public List<Integer> getAffectedIndicies() {
+  public List<Integer> getAffectedIndices() {
+    this.indices.add(swap1);
+    this.indices.add(swap2);
     return this.indices;
   }
 

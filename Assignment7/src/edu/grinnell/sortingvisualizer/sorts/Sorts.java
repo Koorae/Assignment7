@@ -20,9 +20,9 @@ public class Sorts {
       int index = i;
       for (int j = i + 1; j < arr.length; j++) {
         if (arr[j].compareTo(arr[index]) < 0) {
+          events.add(new CompareEvents(i, j));
           index = j;
         }
-        events.add(new CompareEvents(i, j));
       }
       T smaller = arr[index];
       arr[index] = arr[i];
@@ -45,6 +45,7 @@ public class Sorts {
       while (j >= 0 && (key.compareTo(arr[j]) < 0)) {
         events.add(new CompareEvents(i, j));
         arr[j + 1] = arr[j];
+        events.add(new CopyEvents(arr[j], j + 1));
         j = j - 1;
       }
       arr[j + 1] = key;
@@ -162,31 +163,6 @@ public class Sorts {
       sorr.get(i).apply(arr);
     }
   }
-
-  public static <T extends Comparable<T>> List<SortEvent<T>> blindLuckSort(T[] arr) {
-    List<SortEvent<T>> events = new ArrayList<SortEvent<T>>();
-    Random rand = new Random();
-    int pos1;
-    int pos2;
-    while (badLuck(arr)) {
-      pos1 = rand.nextInt(arr.length);
-      pos2 = rand.nextInt(arr.length);
-      T temp = arr[pos1];
-      arr[pos1] = arr[pos2];
-      arr[pos2] = temp;
-      events.add(new SwapEvents(pos1, pos2));
-    }
-    return events;
-  }
-
-  public static <T extends Comparable<T>> boolean badLuck(T[] arr) {
-    for (int i = 0; i < arr.length - 2; i++) {
-      for (int j = i; j < arr.length; j++) {
-        if (arr[i].compareTo(arr[j]) > 0) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+  
+  
 }

@@ -9,7 +9,7 @@ public interface SortEvent <T> {
   public void apply (T[] arr);
   
   // returns a list containing all of the indices that this event affects.
-  List<Integer> getAffectedIndicies();
+  List<Integer> getAffectedIndices();
   
   // return true if this event should be emphasized by the visualizer/audibilizer.
   boolean isEmphasized();

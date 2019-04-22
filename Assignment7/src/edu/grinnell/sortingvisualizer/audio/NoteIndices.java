@@ -17,6 +17,9 @@ public class NoteIndices {
   public NoteIndices(int n) {
     this.notes = new Integer[n];
     this.hl = new Boolean[n];
+    for (int i = 0; i < n; i++) {
+    this.hl[i] = false;
+    }
   }
 
   /**
@@ -31,7 +34,7 @@ public class NoteIndices {
     this.hl = new Boolean[n];
     int rand;
     for (int i = 0; i < n; i++) {
-      this.notes[i] = 2 * (i + 1);
+      this.notes[i] = i;
       this.hl[i] = false;
     }
     for (int i = 0; i < n; i++) {

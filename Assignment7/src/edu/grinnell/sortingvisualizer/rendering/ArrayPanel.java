@@ -29,7 +29,7 @@ public class ArrayPanel extends JPanel {
     g.setColor(Color.white);
     g.fillRect(0, 0, dim.width, dim.height);
     int width = dim.width / (notes.notes.length);
-    int maxheight = notes.notes.length * 2;
+    int maxheight = notes.notes.length;
     for (int i = 0; i < notes.notes.length; i++) {
       if (notes.isHighlighted(i)) {
         g.setColor(new Color(100, 200, 255, 180));
@@ -37,7 +37,7 @@ public class ArrayPanel extends JPanel {
         g.setColor(new Color(200, 50, 50, 200));
       }
       int height = this.notes.notes[i] * dim.height / maxheight;
-      g.fillRect(i * width, 0, width, height);
+      g.fillRect(i * width, dim.height - height, width, height);
     }
     notes.clearAllHighlighted();
   }

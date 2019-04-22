@@ -14,8 +14,6 @@ public class CompareEvents<T> implements SortEvent<T>{
   public CompareEvents(int first, int second) {
     this.first = first;
     this.second = second;
-    this.indices.add(this.first);
-    this.indices.add(this.second);
   }
   
   @Override
@@ -23,7 +21,9 @@ public class CompareEvents<T> implements SortEvent<T>{
   }
 
   @Override
-  public List<Integer> getAffectedIndicies() {
+  public List<Integer> getAffectedIndices() {
+    this.indices.add(this.first);
+    this.indices.add(this.second);
     return this.indices;
   }
 

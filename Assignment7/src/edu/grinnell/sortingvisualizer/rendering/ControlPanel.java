@@ -2,6 +2,7 @@ package edu.grinnell.sortingvisualizer.rendering;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
@@ -48,8 +49,8 @@ public class ControlPanel extends JPanel {
         return Sorts.selectionSort(arr);
       case "Insertion":
         return Sorts.insertionSort(arr);
-      case "Blind":
-        return Sorts.blindLuckSort(arr);
+     /* case "Blind":
+        return Sorts.blindLuckSort(arr);*/
       case "Merge":
         return Sorts.mergeSort(arr);
       case ("Quick"):
@@ -101,7 +102,7 @@ public class ControlPanel extends JPanel {
 
     ///// The sort selection combo box /////
     JComboBox<String> sorts =
-        new JComboBox<>(new String[] {"Selection", "Insertion", "Bubble", "Merge", "Quick"});
+        new JComboBox<>(new String[] {"Selection", "Insertion", "Blind", "Merge", "Quick"});
     add(sorts);
 
     ///// The scale selection combo box /////
@@ -132,17 +133,19 @@ public class ControlPanel extends JPanel {
         }
         isSorting = true;
 
-        // TODO: fill me in
-        // 1. Create the sorting events list
-        // 2. Add in the compare events to the end of the list
-        List<SortEvent<Integer>> events = new java.util.LinkedList<>();
+        Integer[] notesCopy = notes.notes.clone();
+        List<SortEvent<Integer>> events =
+            generateEvents(sorts.getSelectedItem().toString(), notesCopy);
+        List<SortEvent<Integer>> compareEvents = new ArrayList<SortEvent<Integer>>();
+        for (int index = 0; index < events.size(); index++) {
+          if (events.get(index) instanceof CompareEvents) {
+            compareEvents.add(events.get(index));
+            events.remove(index);
+            index--;
+          } // for
+        } // for
+        events.addAll(compareEvents);
 
-        // NOTE: The Timer class repetitively invokes a method at a
-        // fixed interval. Here we are specifying that method
-        // by creating an _anonymous subclass_ of the TimeTask
-        // class. We'll discuss this later in the course.
-        // For now, you can interpret the run() method as the
-        // method that fires on every "tick" of the program.
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
           private int index = 0;
@@ -150,12 +153,16 @@ public class ControlPanel extends JPanel {
           @Override
           public void run() {
             if (index < events.size()) {
-              SortEvent<Integer> e = events.get(index++);
-              // TODO: fill me in
-              // 1. Apply the next sort event.
-              // 3. Play the corresponding notes denoted by the
-              // affected indices logged in the event.
-              // 4. Highlight those affected indices.
+              SortEvent<Integer> event = events.get(index);
+              index++;
+              event.apply(notes.notes);
+              List<Integer> pos = event.getAffectedIndices();
+              for (Integer i : pos) {
+                if (event.isEmphasized()) {
+                  notes.highlightNote(i);
+                } // if e isEmphasized
+                scale.playNote(i, notes.isHighlighted(i));
+              } // for
               panel.repaint();
             } else {
               this.cancel();

@@ -14,7 +14,6 @@ public class CopyEvents<T> implements SortEvent<T> {
   public CopyEvents(T value, int destination) {
     this.val = value;
     this.des = destination;
-    this.indices.add(this.des);
   }
 
   @Override
@@ -23,7 +22,8 @@ public class CopyEvents<T> implements SortEvent<T> {
   }
 
   @Override
-  public List<Integer> getAffectedIndicies() {
+  public List<Integer> getAffectedIndices() {
+    this.indices.add(this.des);
     return this.indices;
   }
 

@@ -49,8 +49,8 @@ public class ControlPanel extends JPanel {
         return Sorts.selectionSort(arr);
       case "Insertion":
         return Sorts.insertionSort(arr);
-     /* case "Blind":
-        return Sorts.blindLuckSort(arr);*/
+      case "Mountain":
+        return Sorts.mountainSort(arr);
       case "Merge":
         return Sorts.mergeSort(arr);
       case ("Quick"):
@@ -102,7 +102,7 @@ public class ControlPanel extends JPanel {
 
     ///// The sort selection combo box /////
     JComboBox<String> sorts =
-        new JComboBox<>(new String[] {"Selection", "Insertion", "Blind", "Merge", "Quick"});
+        new JComboBox<>(new String[] {"Selection", "Insertion", "Mountain", "Merge", "Quick"});
     add(sorts);
 
     ///// The scale selection combo box /////

@@ -159,10 +159,45 @@ public class Sorts {
   }
 
   public static <T extends Comparable<T>> void eventSort(T[] arr, List<SortEvent<T>> sorr) {
-    for (int i = 0; i < arr.length; i++) {
+    for (int i = 0; i < sorr.size(); i++) {
       sorr.get(i).apply(arr);
     }
   }
   
-  
+  public static <T extends Comparable<T>> List<SortEvent<T>> mountainSort (T[] arr) {
+    if (arr == null) {
+      throw new IllegalStateException("Null Array");
+    }
+    List<SortEvent<T>> events = new ArrayList<SortEvent<T>>();
+    int minInd;
+    boolean left = true;
+    int lEnd = 0;
+    int rEnd = arr.length - 1;
+    while (lEnd < rEnd) {
+      minInd = lEnd;
+      for (int i = lEnd; i <= rEnd; i++) {
+        if (arr[minInd].compareTo(arr[i]) > 0) {
+          events.add(new CompareEvents(minInd, i));
+          minInd = i;
+        }
+      }
+      if (left) {
+        T temp = arr[minInd];
+        arr[minInd] = arr[lEnd];
+        arr[lEnd] = temp;
+        events.add(new SwapEvents(minInd, lEnd));
+        left = false;
+        lEnd++;
+      }
+      else {
+        T temp = arr[minInd];
+        arr[minInd] = arr[rEnd];
+        arr[rEnd] = temp;
+        events.add(new SwapEvents(minInd, rEnd));
+        left = true;
+        rEnd--;
+      }
+    }
+    return events;
+  }
 }

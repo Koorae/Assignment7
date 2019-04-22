@@ -137,11 +137,11 @@ public class ControlPanel extends JPanel {
         List<SortEvent<Integer>> events =
             generateEvents(sorts.getSelectedItem().toString(), notesCopy);
         List<SortEvent<Integer>> compareEvents = new ArrayList<SortEvent<Integer>>();
-        for (int index = 0; index < events.size(); index++) {
-          if (events.get(index) instanceof CompareEvents) {
-            compareEvents.add(events.get(index));
-            events.remove(index);
-            index--;
+        for (int i = 0; i < events.size(); i++) {
+          if (events.get(i) instanceof CompareEvents) {
+            compareEvents.add(events.get(i));
+            events.remove(i);
+            i--;
           } // for
         } // for
         events.addAll(compareEvents);
@@ -156,19 +156,17 @@ public class ControlPanel extends JPanel {
               SortEvent<Integer> event = events.get(index);
               index++;
               event.apply(notes.notes);
-              List<Integer> pos = event.getAffectedIndices();
-              for (Integer i : pos) {
+              List<Integer> afct = event.getAffectedIndices();
+              for (Integer i : afct) {
                 if (event.isEmphasized()) {
                   notes.highlightNote(i);
-                } // if e isEmphasized
-                scale.playNote(i, notes.isHighlighted(i));
-              } // for
-              panel.repaint();
+                  scale.playNote(i, true);
+                }
+              }
             } else {
-              this.cancel();
-              panel.repaint();
               isSorting = false;
             }
+            panel.repaint();
           }
         }, 0, toPeriod(FPS));
 

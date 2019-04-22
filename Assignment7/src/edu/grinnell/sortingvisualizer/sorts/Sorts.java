@@ -1,3 +1,4 @@
+
 package edu.grinnell.sortingvisualizer.sorts;
 
 import java.util.ArrayList;
@@ -11,6 +12,14 @@ import edu.grinnell.sortingvisualizer.events.SwapEvents;
 
 public class Sorts {
 
+  /**
+   * selection sort method that finds repeatedly finds minimum value in unsorted section to the end
+   * of the sorted section
+   * 
+   * @param arr array to sort
+   * @return List a list of which Sort Events were used to sort arr
+   * @throws IllegalStateException when arr is null
+   */
   public static <T extends Comparable<T>> List<SortEvent<T>> selectionSort(T[] arr) {
     if (arr == null) {
       throw new IllegalStateException("Null Array");
@@ -32,6 +41,15 @@ public class Sorts {
     return events;
   }
 
+
+  /**
+   * Insertion sort method that iterates through each element, inserting it into the appropriate
+   * spot in a new sorted array
+   * 
+   * @param arr array to sort
+   * @return List a list of which Sort Events were used to sort arr
+   * @throws IllegalStateException when arr is null
+   */
   public static <T extends Comparable<T>> List<SortEvent<T>> insertionSort(T[] arr) {
     if (arr == null) {
       throw new IllegalStateException("Null Array");
@@ -54,11 +72,20 @@ public class Sorts {
     return events;
   }
 
+  /**
+   * Merge sort method "divide-and-conquers" by seperating the arr into single element sub-arrays
+   * and then merging the sub-arrays in the sorted order
+   * 
+   * @param arr array to sort
+   * @return List a list of which Sort Events were used to sort arr
+   * @throws IllegalStateException when arr is null
+   */
   public static <T extends Comparable<T>> List<SortEvent<T>> mergeSort(T[] arr) {
     List<SortEvent<T>> events = new ArrayList<SortEvent<T>>();
     mergeSortHelper(arr, 0, arr.length - 1, events);
     return events;
   }
+
 
   public static <T extends Comparable<T>> List<SortEvent<T>> mergeSortHelper(T[] arr, int start,
       int end, List<SortEvent<T>> events) {
@@ -103,6 +130,15 @@ public class Sorts {
     return events;
   }
 
+  /**
+   * Quick sort chooses a pivot and sorts the array into a sub-array that is less than the pivot and
+   * one that is greater than pivot. Each less than/greater than sub-array is then sorted similarly
+   * until single-element sub-arrays are left.
+   * 
+   * @param arr array to sort
+   * @return List a list of which Sort Events were used to sort arr
+   * @throws IllegalStateException when arr is null
+   */
   public static <T extends Comparable<T>> List<SortEvent<T>> quickSort(T[] arr) {
     List<SortEvent<T>> events = new ArrayList<SortEvent<T>>();
     quickSortHelper(arr, 0, arr.length - 1, events);
@@ -158,13 +194,30 @@ public class Sorts {
     return events;
   }
 
+  /**
+   * eventSort takes a list of sorting events, produced by other sort implementations, and acts on
+   * the given array in the order of events given in the list.
+   * 
+   * @param arr array to sort
+   * @param sorr the list of sorting events to call
+   * @throws IllegalStateException when arr is null
+   */
   public static <T extends Comparable<T>> void eventSort(T[] arr, List<SortEvent<T>> sorr) {
     for (int i = 0; i < sorr.size(); i++) {
       sorr.get(i).apply(arr);
     }
   }
-  
-  public static <T extends Comparable<T>> List<SortEvent<T>> mountainSort (T[] arr) {
+
+  /**
+   * mountainSort sorts arr in minimum-maximum-minimum hierarchy. Placing the least valued element
+   * on the left end, the second least element on the right end, the third least element after the
+   * first at the left end, and so on until the maximum value is in the middle of the sorted array.
+   * 
+   * @param arr array to sort
+   * @return List a list of which Sort Events were used to sort arr
+   * @throws IllegalStateException when arr is null
+   */
+  public static <T extends Comparable<T>> List<SortEvent<T>> mountainSort(T[] arr) {
     if (arr == null) {
       throw new IllegalStateException("Null Array");
     }
@@ -188,8 +241,7 @@ public class Sorts {
         events.add(new SwapEvents(minInd, lEnd));
         left = false;
         lEnd++;
-      }
-      else {
+      } else {
         T temp = arr[minInd];
         arr[minInd] = arr[rEnd];
         arr[rEnd] = temp;

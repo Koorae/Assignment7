@@ -1,3 +1,4 @@
+
 package edu.grinnell.sortingvisualizer.sorts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -99,12 +100,14 @@ class SortsTest {
     checkSelectionSortEvents(nums);
     checkMergeSortEvents(nums);
     checkQuickSortEvents(nums);
+    checkMountainSortEvents(nums);
     
     // Empty Case
     checkInsertionSortEvents(empty);
     checkSelectionSortEvents(empty);
     checkMergeSortEvents(empty);
     checkQuickSortEvents(empty);
+    checkMountainSortEvents(empty);
     
     // Check Random
     Integer[] randArray = new Integer[rand.nextInt(20)];
@@ -115,6 +118,7 @@ class SortsTest {
     checkSelectionSortEvents(randArray);
     checkMergeSortEvents(randArray);
     checkQuickSortEvents(randArray);
+    checkMountainSortEvents(randArray);
 
   } // checkEventSort
 
@@ -147,7 +151,8 @@ class SortsTest {
   // | Sort Checks | ------------------------------------------------
   // +-------------+
 
-  // InsertionSort
+  
+  // InsertionSort---------------
 
   /**
    * Test insertionSort, given an expected result
@@ -182,7 +187,8 @@ class SortsTest {
     assertArrayEquals(sortClone, eventClone);
   } // checkInsertionSortEvents(arr)
 
-  // SelectionSort
+  
+  // SelectionSort----------------------
 
  /**
   * Test selectionSort, given an expected result
@@ -214,7 +220,7 @@ class SortsTest {
  } // checkSelectionSortEvents(arr)
 
  
-  // QuickSort
+  // QuickSort--------------------------------
 
   /**
    * Test QuickSort, given an expected result
@@ -246,7 +252,7 @@ class SortsTest {
   } // checkQuickSortEvents(arr)
 
 
-  // MergeSort
+  // MergeSort-------------------------------
 
   /**
    * Test MergeSort, given an expected result
@@ -277,5 +283,17 @@ class SortsTest {
     assertArrayEquals(sortClone, eventClone);
   } // checkMergeEvents(arr)
 
+  
+  //MountainSort----------------------------
+  
+  /**
+   * Test MountainSort playback
+   */
+  void checkMountainSortEvents(Integer[] arr) {
+    Integer[] sortClone = arr.clone();
+    Integer[] eventClone = arr.clone();
+    List<SortEvent<Integer>> eventList = Sorts.mountainSort(sortClone);
+    Sorts.eventSort(eventClone, eventList);
+    assertArrayEquals(sortClone, eventClone);
+  } // checkMountainEvents(arr)
 }
-

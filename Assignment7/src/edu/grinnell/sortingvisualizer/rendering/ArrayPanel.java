@@ -23,18 +23,24 @@ public class ArrayPanel extends JPanel {
     this.setPreferredSize(new Dimension(width, height));
   }
 
+  /**
+   * Creates the desired graph on the panel.
+   * 
+   * @param graphics object g
+   * @credits Thank HaoruiSun for providing guidance and inspiration
+   */
   @Override
   public void paintComponent(Graphics g) {
     Dimension dim = this.getPreferredSize();
-    g.setColor(Color.white);
+    g.setColor(Color.black);
     g.fillRect(0, 0, dim.width, dim.height);
     int width = dim.width / (notes.notes.length);
     int maxheight = notes.notes.length;
     for (int i = 0; i < notes.notes.length; i++) {
       if (notes.isHighlighted(i)) {
-        g.setColor(new Color(100, 200, 255, 180));
+        g.setColor(Color.white);
       } else {
-        g.setColor(new Color(200, 50, 50, 200));
+        g.setColor(Color.gray);
       }
       int height = this.notes.notes[i] * dim.height / maxheight;
       g.fillRect(i * width, dim.height - height, width, height);

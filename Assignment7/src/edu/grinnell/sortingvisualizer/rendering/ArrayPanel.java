@@ -27,7 +27,7 @@ public class ArrayPanel extends JPanel {
    * Creates the desired graph on the panel.
    * 
    * @param graphics object g
-   * @credits Thank HaoruiSun for providing guidance and inspiration
+   * @credits Thank HaoruiSun for providing guidance and inspiration on this method
    */
   @Override
   public void paintComponent(Graphics g) {
@@ -44,7 +44,7 @@ public class ArrayPanel extends JPanel {
       }
       int height = this.notes.notes[i] * dim.height / maxheight;
       g.fillRect(i * width, dim.height - height, width, height);
-    }
+    } // for
     notes.clearAllHighlighted();
   }
 }

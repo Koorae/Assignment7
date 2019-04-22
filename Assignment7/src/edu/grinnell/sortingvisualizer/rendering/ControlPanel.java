@@ -94,6 +94,7 @@ public class ControlPanel extends JPanel {
    * 
    * @param notes the Notes object that this control panel manages
    * @param panel the ArrayPanel that this panel renders to
+   * @credits Thank HaoruiSun for providing guidance and inspiration for this method.
    */
   public ControlPanel(NoteIndices notes, ArrayPanel panel) {
     scale = new Scale(bMinorPentatonicValues);
@@ -132,18 +133,23 @@ public class ControlPanel extends JPanel {
           return;
         }
         isSorting = true;
-
         Integer[] notesCopy = notes.notes.clone();
         List<SortEvent<Integer>> events =
             generateEvents(sorts.getSelectedItem().toString(), notesCopy);
+        // Creates an array list to store all the CompareEvents
         List<SortEvent<Integer>> compareEvents = new ArrayList<SortEvent<Integer>>();
         for (int i = 0; i < events.size(); i++) {
+          // if the Event is a CompareEvent move it to a separate array list
+          // remove it from the original arraylist
+          // Especially thank Haorui Sun for helping me interpret the desired method for the
+          // function.
           if (events.get(i) instanceof CompareEvents) {
             compareEvents.add(events.get(i));
             events.remove(i);
             i--;
-          } // for
+          } // if
         } // for
+        // append the arraylist back to the original list to get all the CompareEvents onto the back
         events.addAll(compareEvents);
 
         Timer timer = new Timer();
@@ -156,20 +162,21 @@ public class ControlPanel extends JPanel {
               SortEvent<Integer> event = events.get(index);
               index++;
               event.apply(notes.notes);
+
+              // plays the highLighted note if emphasized.
               List<Integer> afct = event.getAffectedIndices();
               for (Integer i : afct) {
                 if (event.isEmphasized()) {
                   notes.highlightNote(i);
                   scale.playNote(i, true);
-                }
-              }
+                } // if
+              } // for
             } else {
               isSorting = false;
             }
             panel.repaint();
           }
         }, 0, toPeriod(FPS));
-
       }
     });
     add(playButton);

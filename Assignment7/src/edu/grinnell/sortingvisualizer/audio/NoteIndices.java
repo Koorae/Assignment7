@@ -18,7 +18,7 @@ public class NoteIndices {
     this.notes = new Integer[n];
     this.hl = new Boolean[n];
     for (int i = 0; i < n; i++) {
-    this.hl[i] = false;
+      this.hl[i] = false;
     }
   }
 
